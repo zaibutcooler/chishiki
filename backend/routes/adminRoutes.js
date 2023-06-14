@@ -6,7 +6,7 @@ const {
   createOne,
   updateOne,
   deleteOne,
-} = require("../controllers/clientController");
+} = require("../controllers/adminController");
 
 router.use(express.json());
 

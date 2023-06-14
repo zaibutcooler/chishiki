@@ -1,4 +1,4 @@
-const Model = require("../models/Client");
+const Model = require("../models/Admin");
 
 const getAll = async (req, res) => {
   try {
@@ -24,10 +24,26 @@ const getOne = async (req, res) => {
 };
 
 const createOne = async (req, res) => {
-  const {} = req.body;
+  const {
+    user,
+    adminID,
+    firstName,
+    lastName,
+    contactEmail,
+    control,
+    inCharge,
+  } = req.body;
 
   try {
-    const item = new Model({});
+    const item = new Model({
+      user,
+      adminID,
+      firstName,
+      lastName,
+      contactEmail,
+      control,
+      inCharge,
+    });
     const savedItem = await item.save();
     res.status(200).json(savedItem);
   } catch (error) {
@@ -38,10 +54,18 @@ const createOne = async (req, res) => {
 
 const updateOne = async (req, res) => {
   try {
-    const {} = req.body;
+    const {
+      user,
+      adminID,
+      firstName,
+      lastName,
+      contactEmail,
+      control,
+      inCharge,
+    } = req.body;
     const item = await Model.findByIdAndUpdate(
       req.params.id,
-      {},
+      { user, adminID, firstName, lastName, contactEmail, control, inCharge },
       { new: true }
     );
     if (!item) {
