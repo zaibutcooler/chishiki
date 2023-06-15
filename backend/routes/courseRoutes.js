@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const authenticate = require("../middlewares/authenticate");
+
 const {
   getAll,
   getOne,
@@ -10,14 +12,14 @@ const {
 
 router.use(express.json());
 
-router.get("/", getAll);
+router.get("/", authenticate, getAll);
 
-router.get("/:id", getOne);
+router.get("/:id", authenticate, getOne);
 
-router.post("/", createOne);
+router.post("/", authenticate, createOne);
 
-router.patch("/:id", updateOne);
+router.patch("/:id", authenticate, updateOne);
 
-router.delete("/:id", deleteOne);
+router.delete("/:id", authenticate, deleteOne);
 
 module.exports = router;

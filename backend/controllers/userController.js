@@ -1,6 +1,9 @@
 const Model = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
+
+const secretKey = process.env.SECRET_KEY;
 
 const register = async (req, res) => {
   try {
@@ -19,6 +22,26 @@ const register = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {};
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await Model.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email" });
+    }
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(401).json({ message: "Incorrect password" });
+    }
+    const token = jwt.sign({ userId: user._id }, secretKey, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 module.exports = { register, login };
