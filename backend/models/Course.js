@@ -15,6 +15,7 @@ const courseSchema = mongoose.Schema({
   classroomPassword: { type: String },
   limit: { type: Number },
   paid: { type: Boolean },
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   created: { type: Date, default: Date.now },
 });
 

@@ -1,4 +1,5 @@
 const Model = require("../models/Admin");
+const generateRandomID = require("../middlewares/randomID");
 
 const getAll = async (req, res) => {
   try {
@@ -22,19 +23,24 @@ const getOne = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
 const createOne = async (req, res) => {
-  const {
-    user,
-    adminID,
-    firstName,
-    lastName,
-    contactEmail,
-    control,
-    inCharge,
-  } = req.body;
+  const { user, firstName, lastName, contactEmail, control, inCharge } =
+    req.body;
 
   try {
+    const userExist = await Model.findOne({ user });
+    console.log(userExist);
+    if (userExist) {
+      return res.status(400).json({ message: "Can't create 2 profiles." });
+    }
+
+    let adminID;
+    let idExists = true;
+    while (idExists) {
+      adminID = generateRandomID("AD", 6);
+      idExists = await Model.findOne({ adminID });
+    }
+
     const item = new Model({
       user,
       adminID,
@@ -54,15 +60,8 @@ const createOne = async (req, res) => {
 
 const updateOne = async (req, res) => {
   try {
-    const {
-      user,
-      adminID,
-      firstName,
-      lastName,
-      contactEmail,
-      control,
-      inCharge,
-    } = req.body;
+    const { user, firstName, lastName, contactEmail, control, inCharge } =
+      req.body;
     const item = await Model.findByIdAndUpdate(
       req.params.id,
       { user, adminID, firstName, lastName, contactEmail, control, inCharge },

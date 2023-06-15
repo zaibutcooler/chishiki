@@ -1,4 +1,5 @@
 const Model = require("../models/Course");
+const Admin = require("../models/Admin");
 
 const getAll = async (req, res) => {
   try {
@@ -39,10 +40,18 @@ const createOne = async (req, res) => {
     classroomPassword,
     limit,
     paid,
+    creator,
     created,
   } = req.body;
 
   try {
+    const sender = await Admin.findById(creator);
+    if (!sender) {
+      return res
+        .status(400)
+        .json({ message: "Only admin can create courses." });
+    }
+
     const item = new Model({
       title,
       teachers,
@@ -58,8 +67,10 @@ const createOne = async (req, res) => {
       classroomPassword,
       limit,
       paid,
+      creator,
       created,
     });
+
     const savedItem = await item.save();
     res.status(200).json(savedItem);
   } catch (error) {
@@ -85,8 +96,15 @@ const updateOne = async (req, res) => {
       classroomPassword,
       limit,
       paid,
+      creator,
       created,
     } = req.body;
+    const sender = await Admin.findById(creator);
+    if (!sender) {
+      return res
+        .status(400)
+        .json({ message: "Only admin can create courses." });
+    }
     const item = await Model.findByIdAndUpdate(
       req.params.id,
       {
@@ -104,6 +122,7 @@ const updateOne = async (req, res) => {
         classroomPassword,
         limit,
         paid,
+        creator,
         created,
       },
       { new: true }

@@ -1,4 +1,5 @@
 const Model = require("../models/Student");
+const generateRandomID = require("../middlewares/randomID");
 
 const getAll = async (req, res) => {
   try {
@@ -25,7 +26,7 @@ const getOne = async (req, res) => {
 
 const createOne = async (req, res) => {
   const {
-    studentID,
+    user,
     firstName,
     lastName,
     dob,
@@ -35,8 +36,22 @@ const createOne = async (req, res) => {
   } = req.body;
 
   try {
+    let studentID;
+    let idExists = true;
+    while (idExists) {
+      studentID = generateRandomID("S", 6);
+      idExists = await Model.findOne({ studentID });
+    }
+
+    const userExist = await Model.findOne({ user });
+    console.log(userExist);
+    if (userExist) {
+      return res.status(400).json({ message: "Can't create 2 profiles." });
+    }
+
     const item = new Model({
       studentID,
+      user,
       firstName,
       lastName,
       dob,
@@ -44,6 +59,7 @@ const createOne = async (req, res) => {
       currentCourses,
       paid,
     });
+
     const savedItem = await item.save();
     res.status(200).json(savedItem);
   } catch (error) {
@@ -55,7 +71,7 @@ const createOne = async (req, res) => {
 const updateOne = async (req, res) => {
   try {
     const {
-      studentID,
+      user,
       firstName,
       lastName,
       dob,
@@ -66,7 +82,7 @@ const updateOne = async (req, res) => {
     const item = await Model.findByIdAndUpdate(
       req.params.id,
       {
-        studentID,
+        user,
         firstName,
         lastName,
         dob,

@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const studentSchema = mongoose.Schema({
   studentID: { type: String, required: true },
-
-  studentID: { type: String, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   dob: { type: Date },
