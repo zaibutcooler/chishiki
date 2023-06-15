@@ -1,0 +1,25 @@
+POST http://localhost:5000/course
+Content-Type: application/json
+
+{
+  "title": "Politics 102",
+  "teachers": ["648a518d53f1b2315b4944c2"],
+  "students": ["648a5a873eddc37e5f84e336"],
+  "outline": ["Introduction", "Algebra", "Geometry"],
+  "startDate": "2023-06-20",
+  "endDate": "2023-08-15",
+  "time": ["10:00 AM", "12:00 PM"],
+  "zoomLink": "https://zoom.us/...",
+  "zoomPassword": "123456",
+  "classroomLink": "https://classroom.com/...",
+  "classroomType": "Virtual",
+  "classroomPassword": "987654",
+  "limit": 30,
+  "paid": true,
+  "creator": "648a518d53f1b2315b4944c2",
+  "created": "2023-06-15"
+}
+
+###
+GET http://localhost:5000/course
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDhhN2FjYTU5ZmZlYTAxNjkxMmU5ODAiLCJpYXQiOjE2ODY3OTk1NDMsImV4cCI6MTY4NjgwMzE0M30.SWu4EM1jKXfLyzkhzsJujbnh0N0M84NgquNvikyGiRg

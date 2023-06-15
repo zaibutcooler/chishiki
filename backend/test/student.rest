@@ -1,0 +1,14 @@
+POST http://localhost:5000/student/
+Content-Type: application/json
+
+{
+  "studentID": "S123456",
+  "user": "648a506a53f1b2315b4944bc",
+  "firstName": "John",
+  "lastName": "Doe",
+  "dob": "2000-01-01",
+  "completedCourses": [],
+  "currentCourses": [],
+  "paid": false,
+  "created": "2022-06-15"
+}
