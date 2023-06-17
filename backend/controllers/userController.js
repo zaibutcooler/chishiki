@@ -13,7 +13,6 @@ const register = async (req, res) => {
       return res.status(400).json({ message: "Email already exists" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("hashed");
     const newUser = new Model({ email, password: hashedPassword, role });
     await newUser.save();
     res.status(200).json(newUser);
