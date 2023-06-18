@@ -46,7 +46,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/grades" element={<GradesPage />} />
-          <Route path="/create-profile" element={<CreateProfile />} />
+          <Route path="/profile/create-profile" element={<CreateProfile />} />
           <Route path="/profile/settings" element={<ProfileSetting />} />
           <Route path="/admin/info" element={<InfoPage />} />
         </Routes>
