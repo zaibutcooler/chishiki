@@ -14,7 +14,7 @@ const CoursePage = () => {
       try {
         const token =
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDhhN2FjYTU5ZmZlYTAxNjkxMmU5ODAiLCJpYXQiOjE2ODcwMzk2MDgsImV4cCI6MTY4NzA0MzIwOH0.oReba7jP_nU-hNxIWE8ePlDXRard2quuVzqzp0oiFY0"; // Replace with your actual JWT token
-        const response = await axios.get("http://localhost:5000/course", {
+        const response = await axios.get("/course", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
