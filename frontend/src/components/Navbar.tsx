@@ -2,13 +2,24 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BiChevronDown } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
+import { removeUser } from "../store/userSlice";
 
 function Navbar() {
-  const isAuthenticated = true;
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.user.isAuthenticated
+  );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isClassroomDropdownOpen, setIsClassroomDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isCourseDropdownOpen, setIsCourseDropdownOpen] = useState(false);
+
+  const handleLogout = () => {
+    navigate("/");
+    dispatch(removeUser());
+  };
 
   const toggleClassroomDropdown = () => {
     setIsClassroomDropdownOpen(!isClassroomDropdownOpen);
@@ -109,7 +120,7 @@ function Navbar() {
                 {isAuthenticated ? (
                   <>
                     <button
-                      onClick={() => navigate("/")}
+                      onClick={handleLogout}
                       className="flex items-center justify-center w-24 bg-sky-50 border border-sky-500 text-sky-950 hover:bg-sky-300 hover:text-sky-50 px-3 py-2 rounded-md text-sm font-medium">
                       Logout
                     </button>

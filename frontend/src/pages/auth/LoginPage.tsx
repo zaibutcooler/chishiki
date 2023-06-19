@@ -2,22 +2,44 @@ import { BsFillEnvelopeFill, BsLockFill } from "react-icons/bs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { setUser } from "../../store/userSlice";
+import { User } from "../../store/types";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const url = "http://localhost:5000/user/login";
   const navigator = useNavigate();
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     try {
-      axios
-        .post(url, { email, password })
-        .then((res) => console.log(res.data.token));
+      const response = await axios.post(url, { email, password });
+      const { token, role, profileID } = response.data;
+
+      dispatch(
+        setUser({
+          isAuthenticated: true,
+          token,
+          email,
+          role,
+          profileId: profileID,
+        })
+      );
+
+      setIsLoading(false);
       navigator("/");
     } catch (error) {
       console.log(error);
-      console.log("Fking error");
+      console.log("Error occurred during login");
+      setIsLoading(false);
     }
   };
 

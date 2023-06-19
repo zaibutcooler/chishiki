@@ -40,3 +40,11 @@ export interface Course {
   creator: Admin;
   created: Date;
 }
+
+export interface User {
+  isAuthenticated: boolean;
+  token: string;
+  email: string;
+  role: boolean;
+  profileId: string;
+}

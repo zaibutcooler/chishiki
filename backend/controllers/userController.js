@@ -58,7 +58,9 @@ const login = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Please create your profile." });
     }
-    res.status(200).json({ token, user });
+    res
+      .status(200)
+      .json({ token, user, profileID: foundUser._id, role: foundUser.role });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
