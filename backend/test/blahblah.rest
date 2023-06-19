@@ -6,13 +6,13 @@ Content-Type: application/json
   "password": "123",
   "role": true
 }
-###
+###648faa66ab66b5beb6cd9c77
 
 POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-  "email": "zaiyellyintaung@gmail.com",
+  "email": "browney@gmail.com",
   "password": "123"
 }
 ###648a506a53f1b2315b4944bc
@@ -21,9 +21,9 @@ POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-  "email": "david.brown@example.com",
-  "password": "password789",
-  "role": true
+  "email": "browney@gmail.com",
+  "password": "123",
+  "role": false
 }
 ###
 

@@ -33,6 +33,9 @@ app.use("/student", studentRoutes);
 const userRoutes = require("./routes/userRoutes");
 app.use("/user", userRoutes);
 
+// Error-handling middleware should come after route registration
+// ...
+
 app.listen(5000, () => {
   console.log("Listening at port 5000");
 });

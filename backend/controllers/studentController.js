@@ -68,6 +68,46 @@ const createOne = async (req, res) => {
   }
 };
 
+// const createOne = async (req, res) => {
+//   const {
+//     studentID,
+//     user,
+//     firstName,
+//     lastName,
+//     dob,
+//     completedCourses,
+//     currentCourses,
+//     paid,
+//     created,
+//   } = req.body;
+
+//   try {
+//     const userExist = await Model.findOne({ user });
+//     console.log(userExist);
+//     if (userExist) {
+//       return res.status(400).json({ message: "Can't create 2 profiles." });
+//     }
+
+//     const item = new Model({
+//       studentID,
+//       user,
+//       firstName,
+//       lastName,
+//       dob,
+//       completedCourses,
+//       currentCourses,
+//       paid,
+//       created,
+//     });
+
+//     const savedItem = await item.save();
+//     res.status(200).json(savedItem);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+
 const updateOne = async (req, res) => {
   try {
     const {

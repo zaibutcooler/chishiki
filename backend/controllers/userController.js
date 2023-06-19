@@ -1,4 +1,6 @@
 const Model = require("../models/User");
+const Student = require("../models/Student");
+const Admin = require("../models/Admin");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -21,22 +23,42 @@ const register = async (req, res) => {
   }
 };
 
+const findUser = async (id, role) => {
+  let user;
+  try {
+    if (role) {
+      user = await Admin.findOne({ user: id });
+    } else if (!role) {
+      user = await Student.findOne({ user: id });
+    }
+  } catch (error) {
+    console.error("Error finding user:", error);
+    throw new Error("Failed to find user.");
+  }
+
+  return user || null;
+};
+
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await Model.findOne({ email });
-    if (!user) {
+    const foundUser = await Model.findOne({ email });
+    if (!foundUser) {
       return res.status(401).json({ message: "Invalid email" });
     }
-    const validPassword = await bcrypt.compare(password, user.password);
+    const validPassword = await bcrypt.compare(password, foundUser.password);
     if (!validPassword) {
       return res.status(401).json({ message: "Incorrect password" });
     }
-    const token = jwt.sign({ userId: user._id }, secretKey, {
+    const token = jwt.sign({ userId: foundUser._id }, secretKey, {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ token });
+    const user = await findUser(foundUser._id, foundUser.role);
+    if (!user) {
+      return res.status(404).json({ message: "Please create your profile." });
+    }
+    res.status(200).json({ token, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

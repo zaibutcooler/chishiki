@@ -34,7 +34,7 @@ function LoginPage() {
               className="block text-sky-700 text-sm font-semibold mb-1">
               Email
             </label>
-            <div className="flex items-center absolute inset-y-0 left-0 pl-3">
+            <div className="flex items-center absolute inset-y-0 left-0 pl-3 pt-5">
               <BsFillEnvelopeFill className="h-5 w-5 text-sky-500" />
             </div>
             <input
@@ -53,7 +53,7 @@ function LoginPage() {
               className="block text-sky-700 text-sm font-semibold mb-1">
               Password
             </label>
-            <div className="flex items-center absolute inset-y-0 left-0 pl-3">
+            <div className="flex items-center absolute inset-y-0 left-0 pl-3 pt-5">
               <BsLockFill className="h-5 w-5 text-sky-500" />
             </div>
             <input
