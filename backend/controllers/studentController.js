@@ -52,6 +52,7 @@ const createOne = async (req, res) => {
       { role: false },
       { new: true }
     );
+
     console.log(updatedUser);
     if (userExist) {
       return res.status(400).json({ message: "Can't create 2 profiles." });

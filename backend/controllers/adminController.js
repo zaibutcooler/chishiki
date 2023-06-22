@@ -24,6 +24,7 @@ const getOne = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 const createOne = async (req, res) => {
   const { user, firstName, lastName, contactEmail, control, inCharge } =
     req.body;
