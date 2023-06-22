@@ -2,9 +2,8 @@ POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-  "email": "zaiyellyintaung@gmail.com",
-  "password": "123",
-  "role": true
+  "email": "ichigo@gmail.com",
+  "password": "123"
 }
 ###648faa66ab66b5beb6cd9c77
 
@@ -12,8 +11,16 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-  "email": "browney@gmail.com",
+  "email": "ichigo@gmail.com",
   "password": "123"
+}
+###
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+  "email": "frostisnotgay@gmail.com",
+  "password": "123456"
 }
 ###648a506a53f1b2315b4944bc
 

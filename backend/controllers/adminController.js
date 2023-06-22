@@ -1,4 +1,5 @@
 const Model = require("../models/Admin");
+const User = require("../models/User");
 const generateRandomID = require("../middlewares/randomID");
 
 const getAll = async (req, res) => {
@@ -33,6 +34,13 @@ const createOne = async (req, res) => {
     if (userExist) {
       return res.status(400).json({ message: "Can't create 2 profiles." });
     }
+    console.log("Updating");
+
+    const updatedUser = await User.findByIdAndUpdate(
+      user,
+      { role: true },
+      { new: true }
+    );
 
     let adminID;
     let idExists = true;

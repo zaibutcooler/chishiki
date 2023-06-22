@@ -16,7 +16,7 @@ router.get("/", authenticate, getAll);
 
 router.get("/:id", authenticate, getOne);
 
-router.post("/", authenticate, createOne);
+router.post("/", createOne);
 
 router.patch("/:id", authenticate, updateOne);
 

@@ -2,9 +2,9 @@ POST http://localhost:5000/student/
 Content-Type: application/json
 
 {
-  "user": "648fadc185fc972120e03cf6",
-  "firstName": "Browney",
-  "lastName": "God",
+  "user": "6493b55c83838d86225e038b",
+  "firstName": "Ichigo",
+  "lastName": "Kurosaki",
   "dob": "2000-01-01",
   "completedCourses": [],
   "currentCourses": [],

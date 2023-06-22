@@ -2,10 +2,10 @@ POST http://localhost:5000/admin/
 Content-Type: application/json
 
 {
-  "user": "648a504c53f1b2315b4944b8",
+  "user": "6493b4ce83838d86225e0381",
   "adminID": "A123456",
-  "firstName": "John",
-  "lastName": "Doe",
+  "firstName": "Kisuke",
+  "lastName": "Urahara",
   "contactEmail": "john.doe@example.com",
   "control": true,
   "inCharge": ["Department A", "Department B"],

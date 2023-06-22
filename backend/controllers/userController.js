@@ -9,13 +9,13 @@ const secretKey = process.env.SECRET_KEY;
 
 const register = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
     const alreadyExists = await Model.findOne({ email });
     if (alreadyExists) {
       return res.status(400).json({ message: "Email already exists" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new Model({ email, password: hashedPassword, role });
+    const newUser = new Model({ email, password: hashedPassword });
     await newUser.save();
     res.status(200).json(newUser);
   } catch (err) {
@@ -56,7 +56,9 @@ const login = async (req, res) => {
 
     const user = await findUser(foundUser._id, foundUser.role);
     if (!user) {
-      return res.status(404).json({ message: "Please create your profile." });
+      return res
+        .status(404)
+        .json({ token, message: "Please create your profile." });
     }
     res
       .status(200)
