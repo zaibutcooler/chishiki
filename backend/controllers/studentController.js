@@ -28,12 +28,15 @@ const getOne = async (req, res) => {
 const createOne = async (req, res) => {
   const {
     user,
-    firstName,
-    lastName,
-    dob,
-    completedCourses,
-    currentCourses,
-    paid,
+    name,
+    email,
+    profilePhoto,
+    birthDate,
+    level,
+    pastDocuments,
+    country,
+    city,
+    phoneNumber,
   } = req.body;
 
   try {
@@ -61,12 +64,15 @@ const createOne = async (req, res) => {
     const item = new Model({
       studentID,
       user,
-      firstName,
-      lastName,
-      dob,
-      completedCourses,
-      currentCourses,
-      paid,
+      name,
+      email,
+      profilePhoto,
+      birthDate,
+      level,
+      pastDocuments,
+      country,
+      city,
+      phoneNumber,
     });
 
     const savedItem = await item.save();
@@ -120,10 +126,15 @@ const createOne = async (req, res) => {
 const updateOne = async (req, res) => {
   try {
     const {
-      user,
-      firstName,
-      lastName,
-      dob,
+      name,
+      email,
+      profilePhoto,
+      birthDate,
+      level,
+      pastDocuments,
+      country,
+      city,
+      phoneNumber,
       completedCourses,
       currentCourses,
       paid,
@@ -131,7 +142,6 @@ const updateOne = async (req, res) => {
     const item = await Model.findByIdAndUpdate(
       req.params.id,
       {
-        user,
         firstName,
         lastName,
         dob,

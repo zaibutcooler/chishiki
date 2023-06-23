@@ -1,11 +1,17 @@
 const mongoose = require("mongoose");
 
 const studentSchema = mongoose.Schema({
-  studentID: { type: String, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  dob: { type: Date },
+  studentID: { type: String, required: true },
+  name: { type: String, required: true },
+  email: { type: String },
+  profilePhoto: { type: Buffer },
+  birthDate: { type: Date },
+  level: { type: String },
+  pastDocuments: { type: Buffer },
+  country: { type: String },
+  city: { type: String },
+  phoneNumber: { type: String },
   completedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
   currentCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
   paid: { type: Boolean, default: false },

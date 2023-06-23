@@ -3,11 +3,17 @@ const mongoose = require("mongoose");
 const adminSchema = mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", unique: true },
   adminID: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  contactEmail: { type: String },
   control: { type: Boolean, default: false },
-  inCharge: [{ type: String }],
+  inCharge: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+  name: { type: String, required: true },
+  qualification: { type: String },
+  experience: { type: Number },
+  email: { type: String },
+  contactNumber: { type: String },
+  profileImg: { type: String },
+  country: { type: String },
+  city: { type: String },
+  subject: { type: String },
   created: { type: Date, default: Date.now },
 });
 

@@ -26,8 +26,18 @@ const getOne = async (req, res) => {
 };
 
 const createOne = async (req, res) => {
-  const { user, firstName, lastName, contactEmail, control, inCharge } =
-    req.body;
+  const {
+    user,
+    name,
+    qualification,
+    experience,
+    email,
+    contactNumber,
+    profileImg,
+    country,
+    city,
+    subject,
+  } = req.body;
 
   try {
     const userExist = await Model.findOne({ user });
@@ -52,12 +62,15 @@ const createOne = async (req, res) => {
 
     const item = new Model({
       user,
-      adminID,
-      firstName,
-      lastName,
-      contactEmail,
-      control,
-      inCharge,
+      name,
+      qualification,
+      experience,
+      email,
+      contactNumber,
+      profileImg,
+      country,
+      city,
+      subject,
     });
     const savedItem = await item.save();
     res.status(200).json(savedItem);
@@ -69,11 +82,32 @@ const createOne = async (req, res) => {
 
 const updateOne = async (req, res) => {
   try {
-    const { user, firstName, lastName, contactEmail, control, inCharge } =
-      req.body;
+    const {
+      name,
+      qualification,
+      experience,
+      email,
+      contactNumber,
+      profileImg,
+      country,
+      city,
+      subject,
+      inCharge,
+    } = req.body;
     const item = await Model.findByIdAndUpdate(
       req.params.id,
-      { user, adminID, firstName, lastName, contactEmail, control, inCharge },
+      {
+        name,
+        qualification,
+        experience,
+        email,
+        contactNumber,
+        profileImg,
+        country,
+        city,
+        subject,
+        inCharge,
+      },
       { new: true }
     );
     if (!item) {
