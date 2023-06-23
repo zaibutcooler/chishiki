@@ -22,7 +22,7 @@ const UserTypeForm: React.FC<UserTypeFormProps> = ({ handleType }) => {
       <form
         className="bg-white shadow-md rounded-lg p-6 border border-sky-200"
         onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-bold mb-6">
+        <h2 className="text-xl text-sky-500 font-semibold mb-6">
           Are you a student or a teacher?
         </h2>
         <div className="flex items-center mb-4">
@@ -53,11 +53,14 @@ const UserTypeForm: React.FC<UserTypeFormProps> = ({ handleType }) => {
             Teacher
           </label>
         </div>
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
-          Submit
-        </button>
+        <div className="flex justify-between mt-4">
+          <p></p>
+          <button
+            type="submit"
+            className="text-sky-500 hover:text-sky-600 focus:outline-none">
+            Next
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -16,9 +16,19 @@ const CreateProfile = () => {
   const renderForm = () => {
     switch (formType) {
       case "student":
-        return <StudentCreateForm onSubmit={handleStudentFormSubmit} />;
+        return (
+          <StudentCreateForm
+            onSubmit={handleStudentFormSubmit}
+            onBack={handleBack}
+          />
+        );
       case "teacher":
-        return <AdminCreateForm onSubmit={handleAdminFormSubmit} />;
+        return (
+          <AdminCreateForm
+            onSubmit={handleAdminFormSubmit}
+            onBack={handleBack}
+          />
+        );
       default:
         return <UserTypeForm handleType={handleType} />;
     }
@@ -32,6 +42,10 @@ const CreateProfile = () => {
   const handleAdminFormSubmit = (formData: any) => {
     console.log("Submitted form data:", formData);
     // Handle form submission logic here
+  };
+
+  const handleBack = () => {
+    setFormType("");
   };
 
   return (
