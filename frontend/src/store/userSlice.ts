@@ -27,6 +27,7 @@ export const userSlice = createSlice({
       state.role = initialState.role;
       state.profileId = initialState.profileId;
     },
+    setUserRegister: (state, action: PayloadAction<string>) => {},
   },
 });
 

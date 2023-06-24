@@ -1,4 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 interface StudentCreateFormProps {
   onSubmit: (formData: StudentFormData) => void;
@@ -6,12 +8,13 @@ interface StudentCreateFormProps {
 }
 
 interface StudentFormData {
+  user: string;
   name: string;
   email: string;
-  profilePhoto: File | null;
+  // profilePhoto: File | null;
   birthDate: string;
   level: string;
-  pastDocuments: File | null;
+  // pastDocuments: File | null;
   country: string;
   city: string;
   phoneNumber: string;
@@ -21,45 +24,28 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
   onSubmit,
   onBack,
 }) => {
-  const [formData, setFormData] = useState<StudentFormData>({
-    name: "",
-    email: "",
-    profilePhoto: null,
-    birthDate: "",
-    level: "",
-    pastDocuments: null,
-    country: "",
-    city: "",
-    phoneNumber: "",
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [level, setLevel] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-  };
-
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = event.target;
-    if (files && files.length > 0) {
-      setFormData((prevFormData) => ({ ...prevFormData, [name]: files[0] }));
-    }
-  };
-
+  const user = useSelector((state: RootState) => state.registerID.id);
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(formData);
-    setFormData({
-      name: "",
-      email: "",
-      profilePhoto: null,
-      birthDate: "",
-      level: "",
-      pastDocuments: null,
-      country: "",
-      city: "",
-      phoneNumber: "",
+    onSubmit({
+      user,
+      name,
+      email,
+      // profilePhoto: null,
+      birthDate,
+      level,
+      // pastDocuments: null,
+      country,
+      city,
+      phoneNumber,
     });
   };
 
@@ -80,8 +66,8 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
                 type="text"
                 id="name"
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -96,8 +82,8 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
                 type="email"
                 id="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -112,7 +98,7 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
                 type="file"
                 id="profilePhoto"
                 name="profilePhoto"
-                onChange={handleFileChange}
+                onChange={() => {}}
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
             </div>
@@ -131,8 +117,8 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
                 type="date"
                 id="birthDate"
                 name="birthDate"
-                value={formData.birthDate}
-                onChange={handleChange}
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -146,8 +132,8 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
               <select
                 id="level"
                 name="level"
-                value={formData.level}
-                onChange={handleChange}
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500">
                 <option value="">Select Level</option>
@@ -166,7 +152,7 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
                 type="file"
                 id="pastDocuments"
                 name="pastDocuments"
-                onChange={handleFileChange}
+                onChange={() => {}}
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
             </div>
@@ -185,8 +171,8 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
                 type="text"
                 id="country"
                 name="country"
-                value={formData.country}
-                onChange={handleChange}
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -201,8 +187,8 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
                 type="text"
                 id="city"
                 name="city"
-                value={formData.city}
-                onChange={handleChange}
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -217,8 +203,8 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
                 type="tel"
                 id="phoneNumber"
                 name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />

@@ -2,15 +2,36 @@ import React, { useState } from "react";
 import UserTypeForm from "../../components/forms/UserTypeForm";
 import StudentCreateForm from "../../components/forms/StudentCreateForm";
 import AdminCreateForm from "../../components/forms/AdminCreateForm";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const CreateProfile = () => {
-  const [askType, setAskType] = useState(true);
   const [formType, setFormType] = useState("");
-  const [showForm, setShowForm] = useState(null);
 
   const handleType = (userType: string) => {
     setFormType(userType);
     console.log(formType);
+  };
+
+  const user = useSelector((state: RootState) => state.registerID.id);
+  console.log(user);
+  const handleStudentFormSubmit = async (formData: any) => {
+    try {
+      await axios.post("http://localhost:5000/student", formData);
+    } catch (error) {
+      console.error(error);
+      // Handle error logic here
+    }
+  };
+
+  const handleAdminFormSubmit = (formData: any) => {
+    console.log("Submitted form data:", formData);
+    // Handle form submission logic here
+  };
+
+  const handleBack = () => {
+    setFormType("");
   };
 
   const renderForm = () => {
@@ -34,25 +55,7 @@ const CreateProfile = () => {
     }
   };
 
-  const handleStudentFormSubmit = (formData: any) => {
-    console.log("Submitted form data:", formData);
-    // Handle form submission logic here
-  };
-
-  const handleAdminFormSubmit = (formData: any) => {
-    console.log("Submitted form data:", formData);
-    // Handle form submission logic here
-  };
-
-  const handleBack = () => {
-    setFormType("");
-  };
-
-  return (
-    <>
-      <div>{renderForm()}</div>
-    </>
-  );
+  return <div>{renderForm()}</div>;
 };
 
 export default CreateProfile;

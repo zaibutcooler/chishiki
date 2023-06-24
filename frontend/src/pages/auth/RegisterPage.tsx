@@ -2,6 +2,9 @@ import { BsFillEnvelopeFill, BsLockFill } from "react-icons/bs";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setID } from "../../store/registerSlice";
+import { RootState } from "../../store";
 
 function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -10,18 +13,24 @@ function RegisterPage() {
   const url = "http://localhost:5000/user/register";
   let role = false;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios
       .post(url, { email, password, role })
       .then((res) => {
+        console.log("id", res.data.id);
+        dispatch(setID(res.data.id));
+
         navigate("/profile/create-profile");
         console.log("success");
       })
       .catch((error) => {
         console.log(error);
       });
+    const rid = useSelector((state: RootState) => state.registerID.id);
+    console.log("Redux id", rid);
   };
 
   return (

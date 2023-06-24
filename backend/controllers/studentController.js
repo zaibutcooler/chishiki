@@ -26,18 +26,8 @@ const getOne = async (req, res) => {
 };
 
 const createOne = async (req, res) => {
-  const {
-    user,
-    name,
-    email,
-    profilePhoto,
-    birthDate,
-    level,
-    pastDocuments,
-    country,
-    city,
-    phoneNumber,
-  } = req.body;
+  const { user, name, email, birthDate, level, country, city, phoneNumber } =
+    req.body;
 
   try {
     let studentID;
@@ -66,10 +56,8 @@ const createOne = async (req, res) => {
       user,
       name,
       email,
-      profilePhoto,
       birthDate,
       level,
-      pastDocuments,
       country,
       city,
       phoneNumber,
