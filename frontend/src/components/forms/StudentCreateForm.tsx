@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 interface StudentCreateFormProps {
-  onSubmit: (formData: StudentFormData) => void;
   onBack: () => void;
 }
 
@@ -20,10 +19,7 @@ interface StudentFormData {
   phoneNumber: string;
 }
 
-const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
-  onSubmit,
-  onBack,
-}) => {
+const StudentCreateForm: React.FC<StudentCreateFormProps> = ({ onBack }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -39,10 +35,8 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
       user,
       name,
       email,
-      // profilePhoto: null,
       birthDate,
       level,
-      // pastDocuments: null,
       country,
       city,
       phoneNumber,
@@ -55,7 +49,6 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({
       case 1:
         return (
           <>
-            {" "}
             <div>
               <label
                 htmlFor="name"
