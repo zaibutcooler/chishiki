@@ -16,6 +16,14 @@ const CreateProfile = () => {
 
   const user = useSelector((state: RootState) => state.registerID.id);
   console.log(user);
+  const handleStudentFormSubmit = async (formData: any) => {
+    try {
+      await axios.post("http://localhost:5000/student", formData);
+    } catch (error) {
+      console.error(error);
+      
+    }
+  };
 
   const handleAdminFormSubmit = (formData: any) => {
     console.log("Submitted form data:", formData);
@@ -29,7 +37,11 @@ const CreateProfile = () => {
   const renderForm = () => {
     switch (formType) {
       case "student":
-        return <StudentCreateForm onBack={handleBack} />;
+        return (
+          <StudentCreateForm
+            onBack={handleBack}
+          />
+        );
       case "teacher":
         return (
           <AdminCreateForm
