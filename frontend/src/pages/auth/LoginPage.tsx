@@ -33,6 +33,10 @@ function LoginPage() {
           profileId: profileID,
         })
       );
+      localStorage.setItem("tokenSchool", token);
+      localStorage.setItem("emailSchool", email);
+      localStorage.setItem("roleSchool", role);
+      localStorage.setItem("profileIdSchool", profileID);
 
       setIsLoading(false);
       navigator("/");

@@ -1,6 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface StudentCreateFormProps {
   onBack: () => void;
@@ -20,6 +22,8 @@ interface StudentFormData {
 }
 
 const StudentCreateForm: React.FC<StudentCreateFormProps> = ({ onBack }) => {
+  const navigator = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -31,16 +35,22 @@ const StudentCreateForm: React.FC<StudentCreateFormProps> = ({ onBack }) => {
   const user = useSelector((state: RootState) => state.registerID.id);
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit({
-      user,
-      name,
-      email,
-      birthDate,
-      level,
-      country,
-      city,
-      phoneNumber,
-    });
+    axios
+      .post("http://localhost:5000/student", {
+        user,
+        name,
+        email,
+        birthDate,
+        level,
+        country,
+        city,
+        phoneNumber,
+      })
+      .then((res) => {
+        console.log(res.data);
+        navigator('/login')
+      })
+      .catch((err) => console.log("error", err));
   };
 
   const [activeForm, setActiveForm] = useState(1);

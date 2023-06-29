@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "../state/userSlice";
+import { setUser } from "../store/userSlice";
 
 import jwt_decode, { JwtPayload } from "jwt-decode";
 
@@ -25,15 +25,22 @@ const useAuthentication = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const username = localStorage.getItem("username");
-    const token = localStorage.getItem("token");
+    const email = localStorage.getItem("emailSchool");
+    const token = localStorage.getItem("tokenSchool");
+    const roleString = localStorage.getItem("roleSchool");
+    const profileId = localStorage.getItem("profileIdSchool");
+
+    const role = roleString ? JSON.parse(roleString) : null; // Parse role back to boolean
+
     const validToken = isTokenValid(String(token));
     if (validToken) {
       dispatch(
         setUser({
-          username: String(username),
+          email: String(email),
           token: String(token),
           isAuthenticated: true,
+          role,
+          profileId: profileId || "",
         })
       );
     }

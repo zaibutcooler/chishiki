@@ -18,6 +18,7 @@ function Navbar() {
 
   const handleLogout = () => {
     navigate("/");
+    localStorage.clear();
     dispatch(removeUser());
   };
 

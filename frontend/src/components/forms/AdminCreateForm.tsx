@@ -1,37 +1,22 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 interface AdminCreateFormProps {
-  onSubmit: (formData: AdminFormData) => void;
   onBack: () => void;
 }
 
-interface AdminFormData {
-  name: string;
-  qualification: File | null;
-  experience: number;
-  email: string;
-  contactNumber: string;
-  profileImg: File | null;
-  country: string;
-  city: string;
-  subject: string;
-}
+const AdminCreateForm: React.FC<AdminCreateFormProps> = ({ onBack }) => {
+  const navigator = useNavigate();
 
-const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
-  onSubmit,
-  onBack,
-}) => {
-  const [formData, setFormData] = useState<AdminFormData>({
-    name: "",
-    qualification: null,
-    experience: 0,
-    email: "",
-    contactNumber: "",
-    profileImg: null,
-    country: "",
-    city: "",
-    subject: "",
-  });
+  const [name, setName] = useState("");
+  const [experience, setExperience] = useState("");
+  const [email, setEmail] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [subject, setSubject] = useState("");
 
   const [activeForm, setActiveForm] = useState(1);
   const formDisplay = () => {
@@ -49,8 +34,8 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
                 type="text"
                 id="name"
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -65,8 +50,8 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
                 type="email"
                 id="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -81,7 +66,7 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
                 type="file"
                 id="profileImg"
                 name="profileImg"
-                onChange={handleFileChange}
+                onChange={() => {}}
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
             </div>
@@ -101,8 +86,8 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
                 type="text"
                 id="subject"
                 name="subject"
-                value={formData.subject}
-                onChange={handleChange}
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -117,8 +102,8 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
                 type="number"
                 id="experience"
                 name="experience"
-                value={formData.experience}
-                onChange={handleChange}
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -133,7 +118,7 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
                 type="file"
                 id="qualification"
                 name="qualification"
-                onChange={handleFileChange}
+                onChange={() => {}}
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
             </div>
@@ -152,8 +137,8 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
                 type="tel"
                 id="contactNumber"
                 name="contactNumber"
-                value={formData.contactNumber}
-                onChange={handleChange}
+                value={contactNumber}
+                onChange={(e) => setContactNumber(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -168,8 +153,8 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
                 type="text"
                 id="country"
                 name="country"
-                value={formData.country}
-                onChange={handleChange}
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -184,8 +169,8 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
                 type="text"
                 id="city"
                 name="city"
-                value={formData.city}
-                onChange={handleChange}
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-sky-500"
               />
@@ -259,21 +244,25 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({
     }
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-  };
-
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = event.target;
-    if (files && files.length > 0) {
-      setFormData((prevFormData) => ({ ...prevFormData, [name]: files[0] }));
-    }
-  };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(formData);
+    const user = useSelector((state: RootState) => state.registerID.id);
+    axios
+      .post("http://localhost:5000/admin", {
+        user,
+        name,
+        email,
+        experience,
+        contactNumber,
+        country,
+        city,
+        subject,
+      })
+      .then((res) => {
+        console.log(res.data);
+        navigator("/login");
+      })
+      .catch((err) => console.log("error", err));
   };
 
   return (
