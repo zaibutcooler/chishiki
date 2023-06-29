@@ -19,6 +19,28 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({ onBack }) => {
   const [subject, setSubject] = useState("");
 
   const [activeForm, setActiveForm] = useState(1);
+  const user = useSelector((state: RootState) => state.registerID.id);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:5000/admin", {
+        user,
+        name,
+        email,
+        experience,
+        contactNumber,
+        country,
+        city,
+        subject,
+      })
+      .then((res) => {
+        console.log(res.data);
+        navigator("/login");
+      })
+      .catch((err) => console.log("error", err));
+  };
+
   const formDisplay = () => {
     switch (activeForm) {
       case 1:
@@ -242,27 +264,6 @@ const AdminCreateForm: React.FC<AdminCreateFormProps> = ({ onBack }) => {
           </>
         );
     }
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const user = useSelector((state: RootState) => state.registerID.id);
-    axios
-      .post("http://localhost:5000/admin", {
-        user,
-        name,
-        email,
-        experience,
-        contactNumber,
-        country,
-        city,
-        subject,
-      })
-      .then((res) => {
-        console.log(res.data);
-        navigator("/login");
-      })
-      .catch((err) => console.log("error", err));
   };
 
   return (
