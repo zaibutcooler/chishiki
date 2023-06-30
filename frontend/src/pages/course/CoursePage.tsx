@@ -1,52 +1,50 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { useEffect } from "react";
-import axios from "axios";
-import { setCourses } from "../../store/courseSlice";
-import { Course } from "../../store/types";
+import React from "react";
+import { format } from "date-fns";
 
-const CoursePage = () => {
-  const { courses } = useSelector((state: RootState) => state.coursea);
-  const dispatch = useDispatch();
+interface Course {
+  title: string;
+  startDate: Date;
+  endDate: Date;
+}
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDhhN2FjYTU5ZmZlYTAxNjkxMmU5ODAiLCJpYXQiOjE2ODcwMzk2MDgsImV4cCI6MTY4NzA0MzIwOH0.oReba7jP_nU-hNxIWE8ePlDXRard2quuVzqzp0oiFY0"; // Replace with your actual JWT token
-        const response = await axios.get("/course", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const fetchedCourses: Course[] = response.data;
-        dispatch(setCourses(fetchedCourses));
-      } catch (error) {
-        // Handle error
-      }
-    };
-
-    fetchCourses();
-  }, []);
+const AllCoursesPage: React.FC = () => {
+  // Dummy data for demonstration purposes
+  const courses: Course[] = [
+    {
+      title: "Course 1",
+      startDate: new Date("2023-08-01 14:00"),
+      endDate: new Date("2023-08-03 16:00"),
+    },
+    {
+      title: "Course 2",
+      startDate: new Date("2023-08-05 10:00"),
+      endDate: new Date("2023-08-07 12:00"),
+    },
+    // Add more courses here
+  ];
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">CoursePage</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {courses &&
-          courses.map((course, index) => (
-            <div className="bg-white shadow-lg rounded-md p-4" key={index}>
-              <h2 className="text-xl font-bold mb-2">{course.title}</h2>
-              <p className="mb-2">
-                Teachers:
-                {course.teachers.map((teacher) => teacher.firstName)}
-              </p>
-              <p className="mb-2">Students: {course.students.length}</p>
-            </div>
-          ))}
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-3xl font-bold mb-6">All Courses</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {courses.map((course, index) => (
+          <div
+            key={index}
+            className="bg-sky-500 rounded-lg p-6 shadow-md text-white">
+            <h3 className="text-xl font-bold mb-4">{course.title}</h3>
+            <p>
+              <strong>Start Date:</strong>{" "}
+              {format(course.startDate, "hh:mm a EEEE")}
+            </p>
+            <p>
+              <strong>End Date:</strong>{" "}
+              {format(course.endDate, "hh:mm a EEEE")}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
-export default CoursePage;
+export default AllCoursesPage;
