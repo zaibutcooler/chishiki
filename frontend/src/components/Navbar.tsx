@@ -10,6 +10,8 @@ function Navbar() {
   const isAuthenticated = useSelector(
     (state: RootState) => state.user.isAuthenticated
   );
+  const isAdmin = useSelector((state: RootState) => state.user.role);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isClassroomDropdownOpen, setIsClassroomDropdownOpen] = useState(false);
@@ -46,6 +48,21 @@ function Navbar() {
           {/* Menu */}
           <div className="hidden md:block">
             <div className="flex items-center space-x-4">
+              {!isAuthenticated && (
+                <NavLink
+                  to="/about"
+                  className="hover:text-sky-300 px-6 py-2 rounded-md text-sm font-medium">
+                  About us
+                </NavLink>
+              )}
+              {!isAuthenticated && (
+                <NavLink
+                  to="/courses/all"
+                  className="hover:text-sky-300 px-6 py-2 rounded-md text-sm font-medium">
+                  Available Courses
+                </NavLink>
+              )}
+
               {isAuthenticated && (
                 <>
                   <NavLink
@@ -71,17 +88,26 @@ function Navbar() {
                         onMouseLeave={toggleCourseDropdown}>
                         <NavLink
                           to="/courses/all"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
                           Discover Courses
                         </NavLink>
-                        <NavLink
-                          to="/courses/taken"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                          Finished Courses
-                        </NavLink>
+                        {isAdmin && (
+                          <NavLink
+                            to="/courses/create-course"
+                            className="block px-4 py-2 text-sm bg-sky-50 text-gray-700 hover:bg-sky-400">
+                            Create Course
+                          </NavLink>
+                        )}
+                        {!isAdmin && (
+                          <NavLink
+                            to="/courses/taken"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+                            Finished Courses
+                          </NavLink>
+                        )}
                         <NavLink
                           to="/courses/events"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
                           Events
                         </NavLink>
                       </div>
@@ -104,14 +130,23 @@ function Navbar() {
                         onMouseLeave={toggleProfileDropdown}>
                         <NavLink
                           to="/profile/settings"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
                           Edit Profile
                         </NavLink>
-                        <NavLink
-                          to="/profile/grades"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                          Grades
-                        </NavLink>
+                        {!isAdmin && (
+                          <NavLink
+                            to="/profile/grades"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
+                            Grades
+                          </NavLink>
+                        )}
+                        {isAdmin && (
+                          <NavLink
+                            to="/admin/info"
+                            className="block bg-sky-50 px-4 py-2 text-sm text-gray-700 hover:bg-sky-400">
+                            Info
+                          </NavLink>
+                        )}
                       </div>
                     )}
                   </div>
