@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-interface Course {
+export interface Course {
   title: string;
   outline: string[];
   startDate: Date | null;
