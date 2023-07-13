@@ -13,23 +13,32 @@ import {
   RiMoonLine,
 } from "react-icons/ri";
 import { useState } from "react";
+import Link from "next/link";
 
 const Sidebar = () => {
   const [isDark, setIsDark] = useState(false);
 
   const links = [
-    { title: "Dashboard", route: "/dashboard", icon: <RiDashboardLine /> },
-    { title: "Classrooms", route: "/classrooms", icon: <RiGroupLine /> },
-    { title: "Courses", route: "/courses", icon: <RiBookOpenLine /> },
-    { title: "Assignments", route: "/assignments", icon: <RiFileListLine /> },
+    { title: "Dashboard", route: "/home", icon: <RiDashboardLine /> },
+    { title: "Classrooms", route: "/home/classrooms", icon: <RiGroupLine /> },
+    { title: "Courses", route: "/home/courses", icon: <RiBookOpenLine /> },
+    {
+      title: "Assignments",
+      route: "/home/classrooms/assignments",
+      icon: <RiFileListLine />,
+    },
     {
       title: "Announcements",
-      route: "/announcements",
+      route: "/home/announcements",
       icon: <RiNotificationLine />,
     },
-    { title: "Chat", route: "/chat", icon: <RiChat1Line /> },
+    { title: "Chat", route: "/home/classrooms/chat", icon: <RiChat1Line /> },
 
-    { title: "Contact", route: "/contact", icon: <RiContactsLine /> },
+    {
+      title: "Contact",
+      route: "/home/about/contact",
+      icon: <RiContactsLine />,
+    },
   ];
 
   return (
@@ -39,21 +48,25 @@ const Sidebar = () => {
         <section className="">
           {links.map((link) => (
             <div key={link.title}>
-              <button className="flex my-3 px-2 py-2 items-center">
+              <Link
+                href={link.route}
+                className="flex my-3 px-2 py-2 items-center">
                 <div className="text-lg mr-2">{link.icon}</div>
                 <p>{link.title}</p>
-              </button>
+              </Link>
             </div>
           ))}
         </section>
         <hr />
         <section>
-          <button className="flex my-3 px-2 py-2 items-center">
+          <Link
+            href="/home/profile/grades"
+            className="flex my-3 px-2 py-2 items-center">
             <div className="text-lg mr-2">
               <RiBarChartLine />
             </div>
             <p>Grades</p>
-          </button>
+          </Link>
           {isDark ? (
             <button className="flex my-3 px-2 py-2 items-center">
               <div className="text-lg mr-2">
