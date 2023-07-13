@@ -1,3 +1,4 @@
+import LandingNavbar from "./_components/LandingNavbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 
@@ -7,7 +8,7 @@ export const metadata = {
   title: "Education",
 };
 
-export default function HomeLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -15,7 +16,7 @@ export default function HomeLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main>{children}</main>
+        <main className="text-title_black bg-bkg">{children}</main>
       </body>
     </html>
   );
