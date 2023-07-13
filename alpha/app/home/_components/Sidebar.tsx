@@ -38,10 +38,12 @@ const Sidebar = () => {
       <div className="text-semibold text-sm ml-2">
         <section className="">
           {links.map((link) => (
-            <button className="flex my-3 px-2 py-2 items-center">
-              <div className="text-lg mr-2">{link.icon}</div>
-              <p>{link.title}</p>
-            </button>
+            <div key={link.title}>
+              <button className="flex my-3 px-2 py-2 items-center">
+                <div className="text-lg mr-2">{link.icon}</div>
+                <p>{link.title}</p>
+              </button>
+            </div>
           ))}
         </section>
         <hr />

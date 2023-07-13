@@ -15,7 +15,7 @@ export default function HomeLayout({
       <div className="hidden md:block md:w-1/4 lg:w-1/6">
         <Sidebar />
       </div>
-      <div className="px-2">
+      <div className="px-2 w-full md:3/4 lg:5/6">
         <DashboardNavbar />
         {children}
       </div>
