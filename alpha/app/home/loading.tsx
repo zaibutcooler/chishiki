@@ -1,4 +1,3 @@
-import "./_assets/loading.css";
 
 const loading = () => {
   return <div>loading.......</div>;
