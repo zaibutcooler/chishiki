@@ -6,7 +6,7 @@ const DashboardNavbar = () => {
   const noti = "Welcome back mf";
 
   return (
-    <main className="flex justify-between py-2 mt-1 w-full">
+    <main className="flex justify-between py-2 mt-1 w-full bg-white border-b">
       <section className="pl-4">
         <p className="text-[0.6rem]">{noti}</p>
         <h1 className="text-lg">{title}</h1>

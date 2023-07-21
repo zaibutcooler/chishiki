@@ -42,15 +42,15 @@ const Sidebar = () => {
   ];
 
   return (
-    <main className="min-h-screen border-r bg-white">
-      <div className="px-3 pt-6 pb-2 text-lg text-center">Title</div>
+    <main className="min-h-screen border-r bg-white w-full pr-3  overflow-y-auto">
+      <div className=" pt-6 pb-2 text-lg text-center">Title</div>
       <div className="text-semibold text-sm ml-2">
         <section className="">
           {links.map((link) => (
             <div key={link.title}>
               <Link
                 href={link.route}
-                className="flex my-3 px-2 py-2 items-center">
+                className="flex my-3 py-2 items-center px-3 hover:bg-gray-400 rounded-lg">
                 <div className="text-lg mr-2">{link.icon}</div>
                 <p>{link.title}</p>
               </Link>
@@ -61,21 +61,21 @@ const Sidebar = () => {
         <section>
           <Link
             href="/home/profile/grades"
-            className="flex my-3 px-2 py-2 items-center">
+            className="flex my-3 py-2 items-center px-3 hover:bg-gray-400 rounded-lg">
             <div className="text-lg mr-2">
               <RiBarChartLine />
             </div>
             <p>Grades</p>
           </Link>
           {isDark ? (
-            <button className="flex my-3 px-2 py-2 items-center">
+            <button className="flex my-3 py-2 items-center px-3 hover:bg-gray-400 rounded-lg">
               <div className="text-lg mr-2">
                 <RiMoonLine />
               </div>
               <p>Dark Mode</p>
             </button>
           ) : (
-            <button className="flex my-3 px-2 py-2 items-center">
+            <button className="flex my-3 py-2 items-center px-3 hover:bg-gray-400 rounded-lg">
               <div className="text-lg mr-2">
                 <RiSunLine />
               </div>
@@ -84,7 +84,7 @@ const Sidebar = () => {
           )}
 
           <hr />
-          <button className="flex my-3 px-2 py-2 items-center">
+          <button className="flex my-3 py-2 items-center px-3 hover:bg-gray-400 rounded-lg">
             <div className="text-lg mr-2">
               <RiLogoutBoxLine />
             </div>
