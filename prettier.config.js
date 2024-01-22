@@ -1,5 +1,7 @@
 /** @type {import('prettier').Config & import('prettier-plugin-tailwindcss').PluginOptions} */
 const config = {
+  plugins: ["prettier-plugin-tailwindcss","@ianvs/prettier-plugin-sort-imports"],
+
   endOfLine: "lf",
   semi: false,
   singleQuote: false,
@@ -28,7 +30,7 @@ const config = {
   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
   importOrderMergeDuplicateImports: true,
   importOrderCombineTypeAndValueImports: true,
-  plugins: ["prettier-plugin-tailwindcss","@ianvs/prettier-plugin-sort-imports"],
+
 };
 
 export default config;
