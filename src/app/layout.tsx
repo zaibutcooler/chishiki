@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 
-import { Inter } from "next/font/google";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,14 +10,43 @@ export const metadata = {
 
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { Metadata } from "next"
+import { Inter } from "next/font/google"
+import { ClerkProvider } from "@clerk/nextjs"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
+
+
+const font = Inter({ subsets: ["latin"] })
+
+// export const metadata: Metadata = siteMetaData
+
+interface RootLayoutProps {
+  children: React.ReactNode
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>{children}</body>
-    </html>
-  );
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body className={font.className}>
+          <ClerkProvider
+            appearance={{
+              variables: { colorPrimary: "#52AAB2" },
+            }}
+          >
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <Toaster />
+              {children}
+              <SpeedInsights />
+              <Analytics />
+            </ThemeProvider>
+          </ClerkProvider>
+        </body>
+      </html>
+    </>
+  )
 }
