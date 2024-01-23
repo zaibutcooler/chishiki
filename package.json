@@ -45,6 +45,8 @@
     "cmdk": "^0.2.0",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.12",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
     "lucide-react": "^0.276.0",
     "next": "^14.0.4",
     "next-themes": "^0.2.1",
@@ -88,5 +90,13 @@
   "ct3aMetadata": {
     "initVersion": "7.25.2"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"]
+  },  
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },  
   "packageManager": "pnpm@8.14.0"
 }
