@@ -19,7 +19,7 @@
     "@mux/mux-node": "^7.3.1",
     "@mux/mux-player-react": "^1.14.2",
     "@prisma/client": "^5.6.0",
-    "@radix-ui/react-alert-dialog": "^1.0.4",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
@@ -45,8 +45,6 @@
     "cmdk": "^0.2.0",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.12",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
     "lucide-react": "^0.276.0",
     "next": "^14.0.4",
     "next-themes": "^0.2.1",
@@ -80,6 +78,8 @@
     "autoprefixer": "^10.4.14",
     "eslint": "^8.54.0",
     "eslint-config-next": "^14.0.4",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
     "postcss": "^8.4.31",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
@@ -91,12 +91,15 @@
     "initVersion": "7.25.2"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"]
-  },  
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },  
+  },
   "packageManager": "pnpm@8.14.0"
 }
