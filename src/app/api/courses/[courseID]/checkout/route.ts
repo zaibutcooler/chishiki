@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-import { db } from "@/lib/db";
+import { db } from "@/server/db";
 import { stripe } from "@/lib/stripe";
 
 export async function POST(
