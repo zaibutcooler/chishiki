@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import { db } from "@/server/db";
-// import { getProgress } from "@/actions/get-progress";
+import { getProgress } from "@/server/get-progress";
 
 import { CourseSidebar } from "@/components/navigations/course/course-sidebar";
 import { CourseNavbar } from "@/components/navigations/course/course-navbar";
@@ -47,9 +47,7 @@ const CourseLayout = async ({
     return redirect("/");
   }
 
-//   const progressCount = await getProgress(userId, course.id);
-
-  const progressCount = 0
+  const progressCount = await getProgress(userId, course.id) ;
 
   return (
     <div className="h-full">
