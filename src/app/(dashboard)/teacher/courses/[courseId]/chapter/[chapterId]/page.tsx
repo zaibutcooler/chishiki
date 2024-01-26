@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 
 import { db } from "@/server/db";
-import { IconBadge } from "@/components/icon-badge";
-import { Banner } from "@/components/banner";
+import { IconBadge } from "@/components/ui/icon-badge";
+import { Banner } from "@/components/ui/banner";
 
 import { ChapterTitleForm } from "./_components/chapter-title-form";
 import { ChapterDescriptionForm } from "./_components/chapter-description-form";

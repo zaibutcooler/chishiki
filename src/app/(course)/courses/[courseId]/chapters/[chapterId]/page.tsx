@@ -11,11 +11,11 @@ import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { CourseProgressButton } from "./_components/course-progress-button";
 
-const ChapterIdPage = async ({
+export default async function ChapterIdPage  ({
   params
 }: {
   params: { courseId: string; chapterId: string }
-}) => {
+})  {
   const { userId } = auth();
   
   if (!userId) {
@@ -65,7 +65,7 @@ const ChapterIdPage = async ({
             title={chapter.title}
             courseId={params.courseId}
             nextChapterId={nextChapter?.id}
-            playbackId={muxData?.playbackId!}
+            playbackId={String(muxData?.playbackId)}
             isLocked={isLocked}
             completeOnEnd={completeOnEnd}
           />
